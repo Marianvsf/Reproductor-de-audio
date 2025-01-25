@@ -1,26 +1,63 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
+import "../../styles/index.css";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+const host = "https://assets.breatheco.de/apis/sound/";
+const songs = [
+  {
+    id: 0,
+    category: "game",
+    name: "Mario Castle",
+    url: "files/mario/songs/castle.mp3"
+  },
+  {
+    id: 1,
+    category: "game",
+    name: "Mario Star",
+    url: "files/mario/songs/hurry-starman.mp3"
+  },
+  {
+    id: 2,
+    category: "game",
+    name: "Mario Overworld",
+    url: "files/mario/songs/overworld.mp3"
+  }
+];
+export default function App() {
+  const [current, setCurrent] = useState(0);
+  const myPlayer = useRef(null);
 
-//create your first component
-const Home = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
-};
+  useEffect(() => {
+    myPlayer.current = new Audio();
+  }, []);
+  const loadSong = (index) => {
+    setCurrent(index);
+    myPlayer.current.src = host + songs[current].url;
+    myPlayer.current.play();
+  };
 
-export default Home;
+  return (
+    <div className="App">
+      {songs.map((s, i) => (
+        <li key={i}>
+          {i === current && "(playing)"} {s.name}
+        </li>
+      ))}
+      <div>
+        <button
+          onClick={() => loadSong(current > 0 ? current - 1 : songs.length - 1)}
+        >
+          prev
+        </button>
+        <button onClick={() => loadSong(current)}>play</button>
+        <button
+          onClick={() =>
+            loadSong(current >= songs.length - 1 ? 0 : current + 1)
+          }
+        >
+          next
+        </button>
+      </div>
+    </div>
+  );
+}
+
