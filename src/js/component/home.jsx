@@ -1,63 +1,71 @@
 import React, { useRef, useState, useEffect } from "react";
 import "../../styles/index.css";
 
-const host = "https://assets.breatheco.de/apis/sound/";
-const songs = [
-  {
-    id: 0,
-    category: "game",
-    name: "Mario Castle",
-    url: "files/mario/songs/castle.mp3"
-  },
-  {
-    id: 1,
-    category: "game",
-    name: "Mario Star",
-    url: "files/mario/songs/hurry-starman.mp3"
-  },
-  {
-    id: 2,
-    category: "game",
-    name: "Mario Overworld",
-    url: "files/mario/songs/overworld.mp3"
-  }
-];
-export default function App() {
-  const [current, setCurrent] = useState(0);
-  const myPlayer = useRef(null);
+export default function ReproductorAudio() {
+    const [songs, setSongs] = useState([]);
+    const [songActual, setSongActual] = useState(null);
+    const playerRef = useRef(null);
 
-  useEffect(() => {
-    myPlayer.current = new Audio();
-  }, []);
-  const loadSong = (index) => {
-    setCurrent(index);
-    myPlayer.current.src = host + songs[current].url;
-    myPlayer.current.play();
-  };
+    useEffect(() => {
+      const hostSong = async () => {
+        const response = await fetch("https://playground.4geeks.com/sound/songs");
+        const data = await response.json();
+        console.log(data)
+        setSongs(data.songs);
+      };
+      hostSong();
+    }, [])
+    
 
-  return (
-    <div className="App">
-      {songs.map((s, i) => (
-        <li key={i}>
-          {i === current && "(playing)"} {s.name}
-        </li>
-      ))}
-      <div>
-        <button
-          onClick={() => loadSong(current > 0 ? current - 1 : songs.length - 1)}
-        >
-          prev
-        </button>
-        <button onClick={() => loadSong(current)}>play</button>
-        <button
-          onClick={() =>
-            loadSong(current >= songs.length - 1 ? 0 : current + 1)
-          }
-        >
-          next
-        </button>
-      </div>
-    </div>
+    const playSong = (index) => {
+      if (playerRef.current) {
+        playerRef.current.pause();
+      }
+      setSongActual(index);
+      playerRef.current = new Audio(songs[index].url);
+      playerRef.current.play()
+    };
+
+    const playNextSong = () => {
+      const nextSong = (songActual + 1 ) % songs.length;
+      playSong(nextSong);
+    };
+
+    const playPreviousSong = () => {
+      const previousSong = (songActual - 1 + songs.length) % songs.length;
+      playSong(previousSong);
+    }
+
+
+    return (
+      <div className="ReproductorAudio">
+        <h1>Reproductor de Audio</h1>
+        <ul>
+        {songs.map((song, index) => (
+          <li key={index} onClick={() => playSong(index)}>
+            {song.name}
+          </li>
+        ))}
+        </ul>
+        {songActual !== null && (
+          <div>
+            <h2>Reproduciendo: {songs[songActual].name}</h2>
+          </div>
+        )}
+          <div>
+            <button onClick={playPreviousSong}>Anterior</button>
+            <button onClick={playSong}>play</button>
+            <button onClick={playNextSong}>Siguiente</button>
+          </div>
+        </div>
+      
   );
 }
+
+
+
+
+
+
+
 
