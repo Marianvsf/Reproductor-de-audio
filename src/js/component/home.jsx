@@ -3,7 +3,7 @@ import "../../styles/index.css";
 
 export default function ReproductorAudio() {
     const [songs, setSongs] = useState([]);
-    const [songActual, setSongActual] = useState(null);
+    const [songActual, setSongActual] = useState(0);
     const playerRef = useRef(null);
 
     useEffect(() => {
@@ -11,7 +11,11 @@ export default function ReproductorAudio() {
         const response = await fetch("https://playground.4geeks.com/sound/songs");
         const data = await response.json();
         console.log(data)
-        setSongs(data.songs);
+        const updatedSongs = data.songs.map( song => ({
+          ...song, 
+          url: `https://playground.4geeks.com${song.url}`
+        }));
+        setSongs(updatedSongs);
       };
       hostSong();
     }, [])
@@ -41,31 +45,25 @@ export default function ReproductorAudio() {
       <div className="ReproductorAudio">
         <h1>Reproductor de Audio</h1>
         <ul>
-        {songs.map((song, index) => (
+        {songs
+        .map((song, index) => (
           <li key={index} onClick={() => playSong(index)}>
             {song.name}
           </li>
         ))}
         </ul>
-        {songActual !== null && (
+        {songActual ? (
           <div>
             <h2>Reproduciendo: {songs[songActual].name}</h2>
           </div>
-        )}
+        ) : null}
           <div>
             <button onClick={playPreviousSong}>Anterior</button>
-            <button onClick={playSong}>play</button>
+            <button onClick={() => playSong(songActual)}>play</button>
             <button onClick={playNextSong}>Siguiente</button>
           </div>
+          <audio ref={playerRef} />
         </div>
       
   );
 }
-
-
-
-
-
-
-
-

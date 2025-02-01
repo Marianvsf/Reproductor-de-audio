@@ -1,5 +1,9 @@
 .ReproductorAudio {
-    font-family: sans-serif;
-    text-align: center;
-  }
-  
+  font-family: sans-serif;
+}
+.ReproductorAudio h1 {
+  text-align: center;
+}
+.ReproductorAudio ul {
+  list-style-type: decimal;
+}
