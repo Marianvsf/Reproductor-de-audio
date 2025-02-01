@@ -10,7 +10,6 @@ export default function ReproductorAudio() {
       const hostSong = async () => {
         const response = await fetch("https://playground.4geeks.com/sound/songs");
         const data = await response.json();
-        console.log(data)
         const updatedSongs = data.songs.map( song => ({
           ...song, 
           url: `https://playground.4geeks.com${song.url}`
@@ -52,17 +51,19 @@ export default function ReproductorAudio() {
           </li>
         ))}
         </ul>
-        {songActual ? (
-          <div>
-            <h2>Reproduciendo: {songs[songActual].name}</h2>
+        <div className="reproductor">
+        <div className="button">
+        <div>
+            <button onClick={playPreviousSong}><i className="fa-solid fa-backward fa-2x"></i></button>
+            <button onClick={() => playSong(songActual)}><i className="fa-solid fa-play fa-2x"></i></button>
+            <button onClick={playNextSong}><i className="fa-solid fa-forward fa-2x"></i></button>
           </div>
-        ) : null}
-          <div>
-            <button onClick={playPreviousSong}>Anterior</button>
-            <button onClick={() => playSong(songActual)}>play</button>
-            <button onClick={playNextSong}>Siguiente</button>
+        {songActual && (
+          <h2>Reproduciendo: {songs[songActual].name}</h2>
+        )}
           </div>
           <audio ref={playerRef} />
+        </div>
         </div>
       
   );
