@@ -4,6 +4,7 @@ import "../../styles/index.css";
 export default function ReproductorAudio() {
     const [songs, setSongs] = useState([]);
     const [songActual, setSongActual] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
     const playerRef = useRef(null);
 
     useEffect(() => {
@@ -26,7 +27,8 @@ export default function ReproductorAudio() {
       }
       setSongActual(index);
       playerRef.current = new Audio(songs[index].url);
-      playerRef.current.play()
+      playerRef.current.play();
+      setIsPlaying(true);
     };
 
     const playNextSong = () => {
@@ -44,27 +46,25 @@ export default function ReproductorAudio() {
       <div className="ReproductorAudio">
         <h1>Reproductor de Audio</h1>
         <ul>
-        {songs
-        .map((song, index) => (
+        {songs.map((song, index) => (
           <li key={index} onClick={() => playSong(index)}>
             {song.name}
           </li>
         ))}
         </ul>
         <div className="reproductor">
-        <div className="button">
-        <div>
-            <button onClick={playPreviousSong}><i className="fa-solid fa-backward fa-2x"></i></button>
-            <button onClick={() => playSong(songActual)}><i className="fa-solid fa-play fa-2x"></i></button>
-            <button onClick={playNextSong}><i className="fa-solid fa-forward fa-2x"></i></button>
+          <div className="button">
+          {songs.length > 0 && (
+            <h2>Reproduciendo: {songs[songActual].name}</h2>
+          )}
+            <div >
+                <button onClick={playPreviousSong}><i className="fa-solid fa-backward fa-2x"></i></button>
+                <button onClick={() => playSong(songActual)}><i className="fa-solid fa-play fa-2x"></i></button>
+                <button onClick={playNextSong}><i className="fa-solid fa-forward fa-2x"></i></button>
+            </div>
           </div>
-        {songActual && (
-          <h2>Reproduciendo: {songs[songActual].name}</h2>
-        )}
-          </div>
+        </div>
           <audio ref={playerRef} />
         </div>
-        </div>
-      
   );
 }
