@@ -23,12 +23,22 @@ export default function ReproductorAudio() {
 
     const playSong = (index) => {
       if (playerRef.current) {
+        if (isPlaying) {
         playerRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        playerRef.current.pause();
+        setSongActual(index);
+        playerRef.current = new Audio(songs[index].url);
+        playerRef.current.play();
+        setIsPlaying(true);
       }
+    } else {
       setSongActual(index);
       playerRef.current = new Audio(songs[index].url);
       playerRef.current.play();
       setIsPlaying(true);
+    }
     };
 
     const playNextSong = () => {
@@ -59,7 +69,8 @@ export default function ReproductorAudio() {
           )}
             <div >
                 <button onClick={playPreviousSong}><i className="fa-solid fa-backward fa-2x"></i></button>
-                <button onClick={() => playSong(songActual)}><i className="fa-solid fa-play fa-2x"></i></button>
+                <button onClick={() => playSong(songActual)}>
+                  <i className={`fa-solid fa-${isPlaying ? 'pause' : 'play'} fa-2x`}></i></button>
                 <button onClick={playNextSong}><i className="fa-solid fa-forward fa-2x"></i></button>
             </div>
           </div>
