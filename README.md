@@ -1,46 +1,32 @@
+![image](https://github.com/user-attachments/assets/7a820fe9-528b-4ecb-b755-eb3ac10b591b)
+
+
 <!-- hide -->
 
-> ⚠️ This repository is deprecated and has no maintenance; we recommend using the [React Hello Vite](https://github.com/4GeeksAcademy/react-hello-vite) template instead.
-
-# Hello World with React boilerplate
-
-Start coding a react application
+# Reproducctor de Audio 
 
 <!-- endhide -->
 
-## How to start coding?
+## Descripción
 
-- Install the packages with `$ npm install`.
-- Run the webpack server with `$ npm run start`
+Este es un reproductor de música intuitivo y fácil de usar, diseñado con HTML5, CSS3 y JavaScript. La aplicación permite a los usuarios explorar y reproducir las canciones de una manera sencilla y personalizable.
 
-You can update the `styles/index.css` or `js/index.js` depending on your needs.
-Add more files into your, `./src/js/components` or styles folder as you need them.
+## Tecnologías utilizadas
 
-## Local Installation (skip if you are working on codespaces or gitpod)
+- Frontend: HTML5, CSS3, JavaScript
+- Otras herramientas: Postman.
 
-Download the boilerplate using git
 
-```
-$ git clone https://github.com/4GeeksAcademy/react-hello.git
-$ cd react-hello
-```
+## Características Principales:
 
-## Publish your website!
+- Interfaz de usuario moderna y adaptable: Diseño limpio y fácil de navegar, con soporte para diferentes tamaños de pantalla.
+- Reproducción de audio: Reproduce archivos de audio en formatos populares (MP3, WAV, etc.).
+- Controles de reproducción: Incluye controles básicos como reproducir, pausar, siguiente y anterior.
+- Visualización de la cancion: Muestra el nombre de la canción que se está reproduciendo.
+- Integración con APIs: Se puede integrar con APIs de servicios de música para obtener información adicional sobre las canciones.
+  
+## Desarrollo:
 
-This boilerplate is 100% compatible with the free [github pages](https://pages.github.com/) and [vercel](https://vercel.com/) hosting.
-
-It takes just 2 minutes to deploy, [click here to start the process](https://github.com/4GeeksAcademy/react-hello/blob/master/docs/DEPLOY.md).
-
-## Other features
-
-- Automatic Code Formatting: Use of [Prettier](https://prettier.io/) for automatic code indentation and formatting.
-- Error reporting: Use of [eslint](https://eslint.org/) for better error reporting.
-- Hot Deploy: Use of [Webpack Development Server](https://webpack.js.org/configuration/dev-server/) for hot deploy and live reload.
-- One-command publish of the code to github pages with `npm run deploy:github`.
-- Babel 7 (really fast).
-
-### Contributors
-
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
-
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+- HTML5: Estructura la interfaz de usuario y los elementos del reproductor.
+- CSS3: Estilos visuales y diseño de la interfaz.
+- JavaScript: Lógica de la aplicación, interacción del usuario, reproducción de audio y gestión de listas de reproducción.
